@@ -6,7 +6,6 @@ A "run" = one agent attempt to perform the same edit task via one mechanism.
 Each run writes runs/<mechanism>/run-<n>/result.json (see compare.py for schema).
 """
 
-import json
 import shutil
 from pathlib import Path
 

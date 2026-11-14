@@ -50,7 +50,9 @@ def _read_file(path: str) -> str:
         raise ToolError(f"File is not valid UTF-8 text: {path}")
 
 
-def _diff_payload(path: str, content: str, old_string: str, new_string: str, *, replace_all: bool) -> dict:
+def _diff_payload(
+    path: str, content: str, old_string: str, new_string: str, *, replace_all: bool
+) -> dict:
     try:
         result = compute_edit(path, content, old_string, new_string, replace_all=replace_all)
     except EditError as e:
@@ -186,7 +188,9 @@ def edit_write_diff(path: str, old_string: str, new_string: str, replace_all: bo
 
 
 @mcp.tool()
-def edit_via_opencode(path: str, old_string: str, new_string: str, replace_all: bool = False) -> dict:
+def edit_via_opencode(
+    path: str, old_string: str, new_string: str, replace_all: bool = False
+) -> dict:
     """Mechanism (b): compute the edit, then have the CURRENT OpenCode session apply it.
 
     Injects a prompt into the live session instructing it to apply this exact diff with
@@ -209,7 +213,9 @@ def edit_via_opencode(path: str, old_string: str, new_string: str, replace_all: 
 
 
 @mcp.tool()
-def verify_edit(path: str, expected_sha256: str | None = None, expected_content: str | None = None) -> dict:
+def verify_edit(
+    path: str, expected_sha256: str | None = None, expected_content: str | None = None
+) -> dict:
     """Deterministic check that a file now matches the expected post-edit state.
 
     Provide either expected_sha256 (sha256 of the expected file content) or
@@ -219,10 +225,20 @@ def verify_edit(path: str, expected_sha256: str | None = None, expected_content:
     actual = sha256_hex(content)
     if expected_sha256 is not None:
         ok = actual == expected_sha256.strip().lower()
-        return {"path": path, "pass": ok, "expected_sha256": expected_sha256, "actual_sha256": actual}
+        return {
+            "path": path,
+            "pass": ok,
+            "expected_sha256": expected_sha256,
+            "actual_sha256": actual,
+        }
     if expected_content is not None:
         ok = content == expected_content
-        return {"path": path, "pass": ok, "expected_sha256": sha256_hex(expected_content), "actual_sha256": actual}
+        return {
+            "path": path,
+            "pass": ok,
+            "expected_sha256": sha256_hex(expected_content),
+            "actual_sha256": actual,
+        }
     return {"path": path, "sha256": actual}
 
 

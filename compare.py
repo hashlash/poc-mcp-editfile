@@ -53,7 +53,14 @@ def summarize(results: list[dict]) -> dict:
     for r in results:
         m = per.setdefault(
             r["mechanism"],
-            {"runs": 0, "turns": [], "tokens": [], "tool_errors": 0, "verify_fails": 0, "native_diffs": 0},
+            {
+                "runs": 0,
+                "turns": [],
+                "tokens": [],
+                "tool_errors": 0,
+                "verify_fails": 0,
+                "native_diffs": 0,
+            },
         )
         m["runs"] += 1
         m["turns"].append(r.get("llm_turns", 0))
@@ -94,7 +101,11 @@ def recommend(per: dict) -> str:
         return f"Recommendation pending: {', '.join(m for m in MECHANISMS if m not in complete)} incomplete (need {N} runs each)."
     best = min(
         complete,
-        key=lambda m: (complete[m]["verify_fail_rate"], complete[m]["tool_error_rate"], complete[m]["avg_tokens"]),
+        key=lambda m: (
+            complete[m]["verify_fail_rate"],
+            complete[m]["tool_error_rate"],
+            complete[m]["avg_tokens"],
+        ),
     )
     return (
         f"Recommendation: {best} — lowest verify-fail rate, then tool-error rate, then token cost "
