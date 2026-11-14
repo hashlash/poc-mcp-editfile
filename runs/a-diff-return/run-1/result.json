@@ -1,0 +1,11 @@
+{
+  "mechanism": "a-diff-return",
+  "run": 1,
+  "tool": "edit_diff",
+  "llm_turns": 3,
+  "tokens": {"input": 0, "output": 0, "cache_read": 0, "cache_write": 0},
+  "tool_error": false,
+  "verify_pass": true,
+  "native_diff": true,
+  "notes": "Proof-of-loop run driven by the POC author (not a timed measurement): MCP edit_diff -> native edit tool apply -> verify_edit pass. Token counts left 0 because they were not metered in this manual run."
+}

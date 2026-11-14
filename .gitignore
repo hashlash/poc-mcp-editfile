@@ -1,0 +1,14 @@
+# Byte-compiled / cache
+__pycache__/
+*.pyc
+
+# Environments
+.venv/
+venv/
+
+# POC run artifacts (regenerated)
+runs/*/results.json
+edit-spec.json
+
+# OS noise
+.DS_Store
